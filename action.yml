@@ -21,7 +21,7 @@ runs:
     - name: run openocd  
       shell: bash
       run: |
-        pwd
-        ls -al
+        echo ${{ github.action_path }}
+        ls -al ${{ github.action_path }}
         # program-openocd.py ${{ inputs.board }} ${{ inputs.binary }}
         # logs-reader.py /dev/ttyUSB0
