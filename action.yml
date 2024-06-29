@@ -11,7 +11,10 @@ inputs:
   board:
     description: Board config name
     required: true
-    
+  serial:
+    description: Serial port
+    required: true
+
 runs:
   using: composite
   steps:
@@ -21,7 +24,5 @@ runs:
     - name: run openocd  
       shell: bash
       run: |
-        echo ${{ github.action_path }}
-        ls -al ${{ github.action_path }}
-        # program-openocd.py ${{ inputs.board }} ${{ inputs.binary }}
-        # logs-reader.py /dev/ttyUSB0
+        ${{ github.action_path }}/program-openocd.py ${{ inputs.board }} ${{ inputs.binary }}
+        ${{ github.action_path }}/logs-reader.py ${{ inputs.serial }}
