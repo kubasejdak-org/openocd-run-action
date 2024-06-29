@@ -1,0 +1,28 @@
+name: Run OpenOCD
+description: Run OpenOCD
+
+inputs:
+  binary:
+    description: Binary to run
+    required: true
+  artifact:
+    description: Artifact to download
+    required: true
+  board:
+    description: Board config name
+    required: true
+  serial:
+    description: Serial port
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: build-${{ inputs.artifact }}
+    - name: run openocd  
+      shell: bash
+      run: |
+        ${{ github.action_path }}/program-openocd.py ${{ inputs.board }} ${{ inputs.binary }}
+        ${{ github.action_path }}/logs-reader.py ${{ inputs.serial }}
